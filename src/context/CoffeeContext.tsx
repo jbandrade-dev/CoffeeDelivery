@@ -1,3 +1,5 @@
+"use client"
+
 import { ReactNode, createContext, useState, useEffect } from "react";
 import * as z from "zod";
 
@@ -74,8 +76,11 @@ export function CoffeeContextProvider({
 }: CoffeeContextProviderProps) {
   const [cartProducts, setCartProducts] = useState<NewProduct[]>([]);
   const [newOrder, setNewOrder] = useState<NewOrderFormData | null>(() => {
-    const storedNewOrder = localStorage.getItem("newOrder");
-    return storedNewOrder ? JSON.parse(storedNewOrder) : null;
+    if (typeof window !== "undefined") {
+      const storedNewOrder = localStorage.getItem("newOrder");
+      return storedNewOrder ? JSON.parse(storedNewOrder) : null;
+    }
+    return null;
   });
 
   useEffect(() => {
@@ -99,6 +104,7 @@ export function CoffeeContextProvider({
       setNewOrder(JSON.parse(storedNewOrder));
     }
   }, []);
+
 
   function handleNewProduct(coffeeData: NewProduct) {
     const existingProductIndex = cartProducts.findIndex(

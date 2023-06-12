@@ -1,5 +1,3 @@
-"use client";
-
 import { CoffeeContext } from "@/context/CoffeeContext";
 import { MapPin, Timer, CurrencyDollar } from "@phosphor-icons/react";
 import { useContext, useEffect } from "react";
@@ -7,9 +5,9 @@ import { useContext, useEffect } from "react";
 export function Success() {
   const { newOrder, setCartProducts } = useContext(CoffeeContext);
 
-  useEffect(() => {
-    setCartProducts([]);
-  }, [newOrder]);
+  // useEffect(() => {
+  //   setCartProducts([]);
+  // }, [newOrder]);
 
   return (
     <article className="w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">

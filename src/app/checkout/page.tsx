@@ -1,4 +1,3 @@
-
 import { Checkout } from "@/components/Checkout";
 import { Navbar } from "@/components/Navbar";
 

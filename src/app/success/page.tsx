@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { Success } from "@/components/Success";
 import { CoffeeContext } from "@/context/CoffeeContext";
@@ -7,8 +7,6 @@ import { useContext } from "react";
 
 export default function SuccessPage() {
   const {newOrder} = useContext(CoffeeContext)
-
-  console.log(newOrder)
 
   return (
     <section className="flex justify-between pt-44 max-w-[70rem] mx-auto">

@@ -1,5 +1,3 @@
-"use client";
-
 import { CoffeeContext } from "@/context/CoffeeContext";
 import Image from "next/image";
 import { useContext, useState } from "react";
