@@ -7,8 +7,8 @@ export function Cart() {
     useContext(CoffeeContext);
 
   return (
-    <article>
-      {cartProducts.map((cartProduct) => (
+    <article className="">
+      {cartProducts?.map((cartProduct) => (
         <CartProductCard key={cartProduct.id} cartProduct={cartProduct} />
       ))}
 

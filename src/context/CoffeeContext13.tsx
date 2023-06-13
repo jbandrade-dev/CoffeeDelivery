@@ -58,6 +58,7 @@ interface CoffeeContextType {
   deliveryPrice: string;
   totalPrice: string;
   newOrder: NewOrderFormData | null;
+  handleSetLocalStorage: (value: NewProduct[]) => void;
   setCartProducts: (cartProducts: NewProduct[]) => void;
   createNewOrder: (orderData: NewOrderFormData) => void;
   handleUpdateProductQuantity: (productId: number, newQuantity: number) => void;
@@ -69,12 +70,16 @@ interface CoffeeContextProviderProps {
   children: ReactNode;
 }
 
-export const CoffeeContext = createContext({} as CoffeeContextType);
+export const CoffeeContext13 = createContext({} as CoffeeContextType);
 
-export function CoffeeContextProvider({
+export function CoffeeContextProvider13({
   children,
 }: CoffeeContextProviderProps) {
-  const [cartProducts, setCartProducts] = useState<NewProduct[]>([]);
+  const [cartProducts, setCartProducts] = useState<NewProduct[]>(() => {
+    const storedCartProducts = localStorage.getItem("cartProducts");
+    return storedCartProducts ? JSON.parse(storedCartProducts) : [];
+  });
+
   const [newOrder, setNewOrder] = useState<NewOrderFormData | null>(() => {
     if (typeof window !== "undefined") {
       const storedNewOrder = localStorage.getItem("newOrder");
@@ -83,16 +88,25 @@ export function CoffeeContextProvider({
     return null;
   });
 
-  useEffect(() => {
-    const storedCartProducts = localStorage.getItem("cartProducts");
-    if (storedCartProducts) {
-      setCartProducts(JSON.parse(storedCartProducts));
-    }
-  }, []);
+  const setLocalStorage = (key: string, value: NewProduct[]): void => {
+    const storedValue = JSON.stringify(value);
+    window.localStorage.setItem(key, storedValue);
+  };
 
-  useEffect(() => {
-    localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
-  }, [cartProducts]);
+  function handleSetLocalStorage(value: NewProduct[]) {
+    setLocalStorage("cartProducts", value);
+  }
+
+  // useEffect(() => {
+  //   const storedCartProducts = localStorage.getItem("cartProducts");
+  //   if (storedCartProducts) {
+  //     setCartProducts(JSON.parse(storedCartProducts));
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
+  // }, [cartProducts]);
 
   useEffect(() => {
     localStorage.setItem("newOrder", JSON.stringify(newOrder));
@@ -105,6 +119,10 @@ export function CoffeeContextProvider({
     }
   }, []);
 
+  useEffect(() => {
+    setCartProducts([]);
+  }, [newOrder]);
+
   function handleNewProduct(coffeeData: NewProduct) {
     const existingProductIndex = cartProducts.findIndex(
       (product) => product.id === coffeeData.id
@@ -114,9 +132,12 @@ export function CoffeeContextProvider({
       const updatedProducts = [...cartProducts];
       updatedProducts[existingProductIndex].quantity += coffeeData.quantity;
       setCartProducts(updatedProducts);
+      handleSetLocalStorage(updatedProducts);
     } else {
       const newCoffee = { ...coffeeData };
-      setCartProducts([...cartProducts, newCoffee]);
+      const updatedProducts = [...cartProducts, newCoffee];
+      setCartProducts(updatedProducts);
+      handleSetLocalStorage(updatedProducts);
     }
   }
 
@@ -133,17 +154,20 @@ export function CoffeeContextProvider({
 
   const totalQuantity = getTotalQuantity();
 
-  function handleUpdateProductQuantity(productId: number, newQuantity: number) {
-    const updatedProducts = cartProducts.map((product) => {
-      if (product.id === productId) {
-        return { ...product, quantity: newQuantity };
-      }
-      return product;
-    });
-    setCartProducts(updatedProducts);
-  }
+  const handleUpdateProductQuantity = (
+    productId: number,
+    newQuantity: number
+  ) => {
+    setCartProducts((prevCartProducts) =>
+      prevCartProducts.map((product) =>
+        product.id === productId
+          ? { ...product, quantity: newQuantity }
+          : product
+      )
+    );
+  };
 
-  const subtotal = cartProducts.reduce((acc, coffee) => {
+  const subtotal = cartProducts?.reduce((acc, coffee) => {
     const coffeePrice = coffee.price * coffee.quantity;
     return acc + coffeePrice;
   }, 0);
@@ -163,20 +187,22 @@ export function CoffeeContextProvider({
   const deliveryPriceFormatted = formatCurrency(deliveryPrice);
   const totalPriceFormatted = formatCurrency(totalPrice);
 
-  function createNewOrder(orderData: NewOrderFormData) {
-    const newOrder = { ...orderData };
+  function createNewOrder(formData: NewOrderFormData) {
+    const newOrder = { ...formData };
     setNewOrder(newOrder);
 
     location.href = "/success/";
   }
   console.log(newOrder);
+
   return (
-    <CoffeeContext.Provider
+    <CoffeeContext13.Provider
       value={{
         cartProducts,
         totalQuantity,
         newOrder,
         createNewOrder,
+        handleSetLocalStorage,
         handleNewProduct,
         handleRemoveProduct,
         handleUpdateProductQuantity,
@@ -187,6 +213,6 @@ export function CoffeeContextProvider({
       }}
     >
       {children}
-    </CoffeeContext.Provider>
+    </CoffeeContext13.Provider>
   );
 }

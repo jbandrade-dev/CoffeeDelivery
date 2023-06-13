@@ -23,7 +23,7 @@ export function Address() {
         </label>
         <input
           id="cep"
-          className="col-span-1 bg-base-input rounded-md p-2 h-10"
+          className="pc:col-span-1 mob:col-span-3 tablet:col-span-3 bg-base-input rounded-md p-2 h-10"
           placeholder="CEP"
           {...register("address.cep", { valueAsNumber: true, required: true })}
         />
@@ -56,7 +56,7 @@ export function Address() {
         </label>
         <input
           id="complemento"
-          className="col-span-2 bg-base-input rounded-md p-2 h-10"
+          className="pc:col-span-1 mob:col-span-2 tablet:col-span-2 bg-base-input rounded-md p-2 h-10"
           placeholder="Complemento"
           {...register("address.complemento", { valueAsNumber: true })}
         />
@@ -68,21 +68,21 @@ export function Address() {
         </label>
         <input
           id="bairro"
-          className="col-span-1 bg-base-input rounded-md p-2 h-10"
+          className="pc:col-span-1 mob:col-span-3 tablet:col-span-3 bg-base-input rounded-md p-2 h-10"
           placeholder="Bairro"
           {...register("address.bairro", { required: true })}
         />
 
-        <div className="grid grid-cols-5 col-span-2 gap-4 h-10">
+        <div className="grid grid-cols-5 pc:col-span-2 mob:col-span-3 tablet:col-span-3 gap-4 h-10">
           <input
             id="cidade"
-            className="col-span-4 bg-base-input rounded-md p-2 h-10"
+            className="flex w-full pc:col-span-4 mob:col-span-3 tablet:col-span-3 bg-base-input rounded-md p-2 h-10"
             placeholder="Cidade"
             {...register("address.cidade", { required: true })}
           />
           <input
             id="UF"
-            className="col-span-1 bg-base-input rounded-md p-2 h-10"
+            className="pc:col-span-1 mob:col-span-2 tablet:col-span-2 bg-base-input rounded-md p-2 h-10"
             placeholder="UF"
             {...register("address.uf", { required: true })}
           />

@@ -11,7 +11,7 @@ export function PaymentMethod() {
   }, [selectedPaymentMethod, setValue]);
 
   return (
-    <section className="grid grid-cols-3 p-10 gap-4 rounded bg-base-card">
+    <section className="grid pc:grid-cols-3 mob:grid-cols-1 p-10 gap-4 rounded bg-base-card">
       <div className="flex col-span-3 gap-2 items-start font-roboto text-base-subtitle">
         <CurrencyDollar
           className="text-brand-purple"
@@ -26,8 +26,8 @@ export function PaymentMethod() {
         </div>
       </div>
 
-      <ul className="grid grid-cols-3 gap-4 col-span-3">
-        <li>
+      <ul className="grid pc:grid-cols-3 mob:grid-cols-1 gap-4 col-span-3">
+        <li className="">
           <input
             id="credito"
             className="bg-base-input rounded-md p-2 h-10 hidden"

@@ -3,15 +3,11 @@ import { MapPin, Timer, CurrencyDollar } from "@phosphor-icons/react";
 import { useContext, useEffect } from "react";
 
 export function Success() {
-  const { newOrder, setCartProducts } = useContext(CoffeeContext);
-
-  useEffect(() => {
-    setCartProducts([]);
-  }, [newOrder]);
+  const { newOrder } = useContext(CoffeeContext);
 
   return (
-    <article className="w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">
-      <div className="flex w-full bg-base-background p-10 rounded-tr-[36px] rounded-bl-[36px] rounded-md">
+    <article className="max-w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">
+      <div className="flex w-full bg-base-background pc:p-10 mob:p-6 rounded-tr-[36px] rounded-bl-[36px] rounded-md">
         <ul className="grid gap-8">
           <li className="flex items-center gap-3 h-10 my-0.5 leading-5">
             <MapPin
@@ -19,19 +15,20 @@ export function Success() {
               size={16}
               weight="fill"
             />
-            <div className="grid gap-1 font-roboto text-sm">
-              <div className="flex gap-1">
+            <div className="grid gap-1 font-roboto pc:text-sm mob:text-xs tablet:text-sm">
+              <div className="pc:flex pc:gap-1 mob:grid">
                 <span>Entrega em</span>
+                <div className="flex">
+                  <span className="font-bold">
+                    Rua {newOrder?.address.rua} {newOrder?.address.numero}
+                  </span>
 
-                <span className="font-bold">
-                  Rua {newOrder?.address.rua} {newOrder?.address.numero}
-                </span>
+                  <span className="font-bold">/</span>
 
-                <span className="font-bold">/</span>
-
-                <span className="font-bold">
-                  {newOrder?.address.complemento}
-                </span>
+                  <span className="font-bold">
+                    {newOrder?.address.complemento}
+                  </span>
+                </div>
               </div>
               <div>
                 <span>{newOrder?.address.bairro}</span>
@@ -47,7 +44,7 @@ export function Success() {
               size={16}
               weight="fill"
             />
-            <div className="grid font-roboto text-sm">
+            <div className="grid font-roboto pc:text-sm mob:text-xs tablet:text-sm">
               <span>Previsão de entrega</span>
               <span className="font-bold">20 min - 30 min </span>
             </div>
@@ -59,7 +56,7 @@ export function Success() {
               size={16}
               weight="fill"
             />
-            <div className="grid font-roboto text-sm">
+            <div className="grid font-roboto pc:text-sm mob:text-xs tablet:text-sm">
               <span>Pagamento na entrega</span>
               <span className="font-bold">
                 {(() => {

@@ -1,7 +1,6 @@
-"use client"
-
+"use client";
 import React, { FormEvent, useContext } from "react";
-import { CoffeeContext, CreateNewOrderData } from "@/context/CoffeeContext";
+import { CoffeeContext } from "@/context/CoffeeContext";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Address } from "./Address";
@@ -24,23 +23,26 @@ export function Checkout() {
 
   function handleSubmitOrder(event: FormEvent) {
     event.preventDefault();
+    
     const formData = watch();
+    console.log('handleSubmitOrder called with formData:', formData);
     const { address, paymentMethod } = formData;
-
+  
     createNewOrder({
       address,
       paymentMethod,
       cartProducts,
     });
   }
+  
 
   return (
     <main>
       <FormProvider {...newOrderForm}>
         <form
           autoComplete="off"
-          className="flex my-10 max-w-[1120px] w-full mx-auto"
-          onSubmit={handleSubmitOrder}
+          className="pc:flex mob:grid tablet:grid my-10 max-w-[1120px] w-full mx-auto pc:px-0 mob:px-6 tablet:px-6"
+          onSubmit={(handleSubmitOrder)}
         >
           <div className="grid gap-3 max-w-[40rem]">
             <h3 className="text-lg font-bold mb-1 ml-1">Complete seu pedido</h3>
@@ -48,8 +50,8 @@ export function Checkout() {
             <PaymentMethod />
           </div>
 
-          <div className="pl-8 w-full">
-            <h3 className="text-lg font-bold mb-4 ml-1">Cafés selecionados</h3>
+          <div className="pc:pl-8 mob:pl-0 tablet:pl-0 w-full">
+            <h3 className="text-lg font-bold mb-4 ml-1 pc:pt-0 mob:pt-16 tablet:pt-16">Cafés selecionados</h3>
             <div className="grid p-10 bg-base-card rounded-tr-[44px] rounded-bl-[44px] rounded-md">
               <Cart />
               <button

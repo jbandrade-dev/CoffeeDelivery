@@ -33,7 +33,7 @@ export function CartProductCard({ cartProduct }: CartProductCardProps) {
 
   return (
     <section>
-      <div className="flex justify-between items-start pr-1">
+      <div className="pc:flex pc:order-1 mob:order-2 pc:justify-between items-start pr-1">
         <div className="flex items-center gap-4">
           <Image
             src={cartProduct.src}
@@ -93,7 +93,7 @@ export function CartProductCard({ cartProduct }: CartProductCardProps) {
           </div>
         </div>
 
-        <p className="flex justify-center font-roboto font-bold text-sm text-gray-700">
+        <p className="flex justify-center font-roboto font-bold text-sm text-gray-700 pc:flex tablet:flex mob:hidden">
           {priceFormatted}
         </p>
       </div>
