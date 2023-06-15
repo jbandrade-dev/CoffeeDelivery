@@ -127,8 +127,6 @@ export function CoffeeContextProvider({
     dispatch(setNewOrderDataAction(info));
   }
 
-  console.log(newOrderData);
-
   function resetCoffeeContext() {
     dispatch(resetCoffeeContextAction());
   }

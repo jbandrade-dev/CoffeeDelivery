@@ -28,9 +28,7 @@ export function Checkout() {
     },
   });
 
-  const { watch, getValues } = newOrderForm;
-
-  console.log("formValues:", getValues());
+  const { watch } = newOrderForm;
 
   function handleSubmitNewOrder(event: FormEvent) {
     event.preventDefault()
@@ -39,7 +37,6 @@ export function Checkout() {
 
     const {...info} = data
 
-    console.log("handleSubmitNewOrder called with data:", info);
     setNewOrderData(info);
     location.href = "/success/";
   }
@@ -73,7 +70,7 @@ export function Checkout() {
               className="flex w-full mt-6 items-center justify-center uppercase font-roboto font-bold bg-brand-yellow h-11 text-white text-xs py-3 rounded hover:bg-brand-yellow-dark transition-[300] ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-yellow-dark"
               type="submit"
               // disabled={!formState.isValid}
-              onClick={() => console.log("Submit button clicked")}
+
             >
               Confirmar pedido
             </button>

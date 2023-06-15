@@ -14,7 +14,7 @@ export interface OrderState {
 }
 
 export function OrderReducer(state: OrderState, action: any) {
-  console.log("OrderReducer called with state:", state, "and action:", action);
+
   switch (action.type) {
     case Actions.ADD_ITEM: {
       const existingProductIndex = state.cartProducts.findIndex(
