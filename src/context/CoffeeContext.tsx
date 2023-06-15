@@ -53,18 +53,18 @@ export function CoffeeContextProvider({
     OrderReducer,
     { cartProducts: [], newOrderData: undefined },
     (initialState) => {
-      const storedCartProducts = localStorage.getItem("cartProducts");
-      const storedNewOrderData = localStorage.getItem("newOrderData");
-      try {
-        return {
-          ...initialState,
-          cartProducts: storedCartProducts ? JSON.parse(storedCartProducts) : [],
-          newOrderData: storedNewOrderData ? JSON.parse(storedNewOrderData) : undefined,
-        };
-      } catch (error) {
-        console.error(error);
-        return initialState;
+      if (typeof window !== "undefined") {
+        const storedCartProducts = localStorage.getItem("cartProducts");
+        const storedNewOrderData = localStorage.getItem("newOrderData");
+        if (storedCartProducts && storedNewOrderData) {
+          return {
+            ...initialState,
+            cartProducts: JSON.parse(storedCartProducts),
+            newOrderData: JSON.parse(storedNewOrderData),
+          };
+        }
       }
+      return initialState;
     }
   );
 
@@ -112,7 +112,7 @@ export function CoffeeContextProvider({
 
   function setNewOrderData(info: NewOrderFormData) {
     dispatch(setNewOrderDataAction(info));
-    resetCoffeeContext()
+    resetCoffeeContext();
   }
 
   console.log(newOrderData);
