@@ -53,7 +53,7 @@ export function CoffeeContextProvider({
     OrderReducer,
     { cartProducts: [], newOrderData: undefined },
     (initialState) => {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         const storedCartProducts = localStorage.getItem("cartProducts");
         const storedNewOrderData = localStorage.getItem("newOrderData");
         if (storedCartProducts && storedNewOrderData) {
