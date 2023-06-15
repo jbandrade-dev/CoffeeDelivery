@@ -58,7 +58,7 @@ export function CoffeeContextProvider({
       if (typeof window !== "undefined") {
         const storedCartProducts = localStorage.getItem("cartProducts");
         const storedNewOrderData = localStorage.getItem("newOrderData");
-        if (storedCartProducts && storedNewOrderData) {
+        if (storedCartProducts && storedNewOrderData!) {
           return {
             ...initialState,
             cartProducts: JSON.parse(storedCartProducts),
