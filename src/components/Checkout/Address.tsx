@@ -18,73 +18,63 @@ export function Address() {
       </header>
 
       <div className="grid grid-cols-3 gap-4">
-        <label htmlFor="cep" className="sr-only">
-          CEP
-        </label>
+        <label htmlFor="cep" className="sr-only" />
         <input
           id="cep"
           className="pc:col-span-1 mob:col-span-3 tablet:col-span-3 bg-base-input rounded-md p-2 h-10"
           placeholder="CEP"
-          {...register("address.cep", { valueAsNumber: true, required: true })}
+          {...register("cep", { valueAsNumber: true, required: true })}
         />
 
-        <label htmlFor="rua" className="sr-only">
-          Rua
-        </label>
+        <label htmlFor="rua" className="sr-only" />
         <input
           id="rua"
           className="col-span-3 bg-base-input rounded-md p-2 h-10"
           placeholder="Rua"
-          {...register("address.rua", { required: true })}
+          {...register("rua", { required: true })}
         />
 
-        <label htmlFor="numero" className="sr-only">
-          Número
-        </label>
+        <label htmlFor="numero" className="sr-only" />
         <input
           id="numero"
           className="col-span-1 bg-base-input rounded-md p-2 h-10"
           placeholder="Número"
-          {...register("address.numero", {
-            valueAsNumber: true,
-            required: true,
-          })}
+          {...register("numero", { required: true })}
         />
 
-        <label htmlFor="complemento" className="sr-only">
-          Complemento
-        </label>
+        <label htmlFor="complemento" className="sr-only" />
         <input
           id="complemento"
           className="pc:col-span-1 mob:col-span-2 tablet:col-span-2 bg-base-input rounded-md p-2 h-10"
           placeholder="Complemento"
-          {...register("address.complemento", { valueAsNumber: true })}
+          {...register("complemento", { valueAsNumber: true, required: true })}
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <label htmlFor="bairro" className="sr-only">
-          Bairro
-        </label>
+      <div className="grid grid-cols-3 gap-4 pt-4">
+        <label htmlFor="bairro" className="sr-only" />
         <input
           id="bairro"
           className="pc:col-span-1 mob:col-span-3 tablet:col-span-3 bg-base-input rounded-md p-2 h-10"
           placeholder="Bairro"
-          {...register("address.bairro", { required: true })}
+          {...register("bairro", { required: true })}
         />
 
         <div className="grid grid-cols-5 pc:col-span-2 mob:col-span-3 tablet:col-span-3 gap-4 h-10">
+          <label htmlFor="cidade" className="sr-only" />
           <input
             id="cidade"
             className="flex w-full pc:col-span-4 mob:col-span-3 tablet:col-span-3 bg-base-input rounded-md p-2 h-10"
             placeholder="Cidade"
-            {...register("address.cidade", { required: true })}
+            {...register("cidade", { required: true })}
           />
+
+          <label htmlFor="uf" className="sr-only" />
           <input
-            id="UF"
+            id="uf"
             className="pc:col-span-1 mob:col-span-2 tablet:col-span-2 bg-base-input rounded-md p-2 h-10"
-            placeholder="UF"
-            {...register("address.uf", { required: true })}
+            placeholder="Uf"
+            {...register("uf", { required: true })}
           />
         </div>
       </div>

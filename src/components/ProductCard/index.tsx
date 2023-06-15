@@ -1,69 +1,61 @@
-import { CoffeeContext } from "@/context/CoffeeContext";
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
+import { ShoppingCart } from "@phosphor-icons/react";
+import { CoffeeListProps } from "@/utils/coffeeList";
 import { useContext, useState } from "react";
+import { CoffeeContext } from "@/context/CoffeeContext";
+import { Minus, Plus, Trash } from "@phosphor-icons/react";
+import { FormatCurrency } from "../FormatCurrency";
 import { Description } from "./Description";
-import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
+import Image from "next/image";
 
-interface ProductCardProps {
-  coffee: {
-    id: number;
-    src: string;
-    alt: string;
-    name: string;
-    description: string;
-    price: number;
-    badges: string[];
-  };
+interface CoffeeCardProps {
+  coffee: CoffeeListProps;
+  selected?: boolean;
 }
 
-export function ProductCard({ coffee }: ProductCardProps) {
-  const { handleNewProduct } = useContext(CoffeeContext);
+export function ProductCard({ coffee, selected = false }: CoffeeCardProps) {
+  const {
+    handleNewProduct,
+    handleRemoveProduct,
+    handleDecrementQuantity,
+    handleIncrementQuantity,
+  } = useContext(CoffeeContext);
   const [quantity, setQuantity] = useState(1);
-  const [isClicked, setIsClicked] = useState(false);
 
-  const priceFormatted = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(coffee.price);
+  function handleSubmitProduct(coffee: CoffeeListProps, quantity: number) {
+    const item = {
+      coffee,
+      quantity,
+    };
 
-  function handleAddCoffee() {
-    handleNewProduct({
-      id: coffee.id,
-      src: coffee.src,
-      alt: coffee.alt,
-      name: coffee.name,
-      description: coffee.description,
-      price: coffee.price,
-      badges: coffee.badges,
-      quantity: quantity,
-    });
+    handleNewProduct(item);
+  }
+
+  function handleDecrease() {
+    setQuantity(quantity - 1);
   }
 
   function handleIncrement() {
     setQuantity(quantity + 1);
   }
 
-  function handleDecrease() {
-    quantity > 1 ? setQuantity(quantity - 1) : null;
-  }
-
-  function handleClick() {
-    handleAddCoffee();
-    setIsClicked(true);
-  }
-
   return (
     <article className="flex-col p-5 bg-base-card rounded-bl-3xl rounded-tr-3xl rounded-tl-md rounded-br-md mb-4 border border-transparent transition-[300] ease-out">
-      <figure className="flex justify-center mt-[-45px]">
-        <Image src={coffee.src} alt={coffee.alt} width={120} height={120} />
-        <figcaption className="sr-only">{coffee.name}</figcaption>
-      </figure>
+      <div className="flex justify-center mt-[-45px]">
+        <Image src={coffee.image} alt={coffee.alt} width={120} height={120} />
+      </div>
+
+      <div className="flex">
+        {coffee.tags?.map((tag) => (
+          <div key={tag}>{tag}</div>
+        ))}
+      </div>
 
       <Description name={coffee.name} description={coffee.description} />
 
       <div className="flex justify-between pt-8">
         <span className="font-extrabold text-xl text-base-text pt-0.5">
-          {priceFormatted}
+          {FormatCurrency(coffee.price)}
         </span>
 
         <div className="flex gap-2 h-[2.375rem]">
@@ -94,16 +86,17 @@ export function ProductCard({ coffee }: ProductCardProps) {
               />
             </button>
           </div>
-
-          <button
-            onClick={handleClick}
-            className="flex items-center justify-center text-white bg-brand-purple-dark hover:bg-brand-purple w-[2.375rem] h-[2.375rem] rounded-md"
-            aria-label="Add to cart"
-            aria-pressed={isClicked}
-          >
-            <ShoppingCartSimple size={22} weight="fill" />
-          </button>
         </div>
+        <button
+          className="flex items-center justify-center text-white bg-brand-purple-dark hover:bg-brand-purple w-[2.375rem] h-[2.375rem] rounded-md"
+          onClick={() => handleSubmitProduct(coffee, quantity)}
+        >
+          <ShoppingCart
+            weight="fill"
+            aria-label="Adiciona ao carrinho"
+            size={22}
+          />
+        </button>
       </div>
     </article>
   );

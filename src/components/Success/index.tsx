@@ -3,7 +3,7 @@ import { MapPin, Timer, CurrencyDollar } from "@phosphor-icons/react";
 import { useContext, useEffect } from "react";
 
 export function Success() {
-  const { newOrder } = useContext(CoffeeContext);
+  const { newOrderData } = useContext(CoffeeContext);
 
   return (
     <article className="max-w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">
@@ -20,20 +20,20 @@ export function Success() {
                 <span>Entrega em</span>
                 <div className="flex">
                   <span className="font-bold">
-                    Rua {newOrder?.address.rua} {newOrder?.address.numero}
+                    Rua {newOrderData?.rua} {newOrderData?.numero}
                   </span>
 
                   <span className="font-bold">/</span>
 
                   <span className="font-bold">
-                    {newOrder?.address.complemento}
+                    {newOrderData?.complemento}
                   </span>
                 </div>
               </div>
               <div>
-                <span>{newOrder?.address.bairro}</span>
+                <span>{newOrderData?.bairro}</span>
                 <span>-</span>
-                <span>{newOrder?.address.uf}</span>
+                <span>{newOrderData?.uf}</span>
               </div>
             </div>
           </li>
@@ -47,6 +47,7 @@ export function Success() {
             <div className="grid font-roboto pc:text-sm mob:text-xs tablet:text-sm">
               <span>Previsão de entrega</span>
               <span className="font-bold">20 min - 30 min </span>
+              <span>{newOrderData?.cep} cep</span>
             </div>
           </li>
 
@@ -60,13 +61,13 @@ export function Success() {
               <span>Pagamento na entrega</span>
               <span className="font-bold">
                 {(() => {
-                  switch (newOrder?.paymentMethod) {
-                    case "credito":
+                  switch (newOrderData?.paymentMethod) {
+                    case "credit":
                       return "Cartão de Crédito";
-                    case "debito":
+                    case "debit":
                       return "Cartão de Débito";
                     default:
-                      return "Dinheiro";
+                      return "cash";
                   }
                 })()}
               </span>

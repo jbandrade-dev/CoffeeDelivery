@@ -4,8 +4,6 @@ import "./globals.css";
 import { Baloo_2 } from "next/font/google";
 import { Roboto } from "next/font/google";
 import { CoffeeContextProvider } from "@/context/CoffeeContext";
-import { Navbar } from "@/components/Navbar";
-import type { NextWebVitalsMetric } from 'next/app'
 
 export const baloo_2 = Baloo_2({
   subsets: ["latin"],

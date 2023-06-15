@@ -1,35 +1,50 @@
 import { useContext } from "react";
+import { useFormContext } from "react-hook-form";
+
 import { CoffeeContext } from "@/context/CoffeeContext";
+import { FormatCurrency } from "../FormatCurrency";
 import { CartProductCard } from "./CartProductCard";
 
 export function Cart() {
-  const { cartProducts, subtotal, deliveryPrice, totalPrice } =
-    useContext(CoffeeContext);
+  const { formState } = useFormContext();
+
+  const { cartProducts } = useContext(CoffeeContext);
+
+  const subtotal = cartProducts.reduce(
+    (acc, cartItem) => acc + cartItem.coffee.price * cartItem.quantity,
+    0
+  );
+
+  const deliveryPrice = 3;
+
+  const totalPrice = subtotal + deliveryPrice;
 
   return (
-    <article className="">
-      {cartProducts?.map((cartProduct) => (
-        <CartProductCard key={cartProduct.id} cartProduct={cartProduct} />
+    <div>
+      {cartProducts.map(({ coffee, quantity }) => (
+        <CartProductCard key={coffee.id} coffee={coffee} quantity={quantity} />
       ))}
 
-      <section>
+      <div>
         <ul className="grid gap-3 font-roboto">
           <li className="flex justify-between h-4">
             <span className="text-sm">Total de itens</span>
-            <span className="">{subtotal}</span>
+            <span>{FormatCurrency(subtotal)}</span>
           </li>
 
           <li className="flex justify-between h-4">
             <span className="text-sm">Entrega</span>
-            <span className="">{deliveryPrice}</span>
+            <span>{FormatCurrency(deliveryPrice)}</span>
           </li>
 
           <li className="flex justify-between h-5 font-bold">
             <span className="text-lg">Total</span>
-            <span className="text-lg">{totalPrice}</span>
+            <span className="text-lg">{FormatCurrency(totalPrice)}</span>
           </li>
         </ul>
-      </section>
-    </article>
+
+
+      </div>
+    </div>
   );
 }

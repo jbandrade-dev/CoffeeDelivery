@@ -7,7 +7,7 @@ import {
 
 export function HeroList() {
   return (
-    <ul className="pc:flex pc:flex-wrap mob:grid pc:pb-28 mob:pb-8 text-base-text mob:mx-auto max-w-[567px] font-roboto">
+    <ul className="pc:flex pc:flex-wrap mob:grid pc:pb-28 mob:pb-8 text-base-text max-w-[567px] font-roboto">
       <li className="flex pc:w-1/2 tablet:w-full mob:w-full mb-6 gap-2 items-center">
         <ShoppingCartSimple
           className=" text-white rounded-full bg-brand-yellow-dark w-8 h-8 p-2"

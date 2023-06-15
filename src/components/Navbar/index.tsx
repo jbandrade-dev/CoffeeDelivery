@@ -7,7 +7,12 @@ import { Logo } from "./Logo";
 import { ShoppingCartSimple, MapPin } from "@phosphor-icons/react";
 
 export function Navbar() {
-  const { totalQuantity } = useContext(CoffeeContext);
+  const { cartProducts } = useContext(CoffeeContext);
+
+  const totalQuantity = cartProducts.reduce(
+    (acc, value) => acc + value.quantity,
+    0
+  );
 
   return (
     <nav className="w-full pc:px-0 mob:px-4 tablet:px-4" id="home">
@@ -19,7 +24,9 @@ export function Navbar() {
         <div className="flex items-center gap-2">
           <div className="flex gap-1 items-center h-[2.375rem] bg-brand-purple-light text-brand-purple-dark rounded-md px-2 py-2">
             <MapPin size={22} className="" weight="fill" />
-            <span className="flex gap-1 text-sm mr-0.5">Rio de Janeiro, Rj</span>
+            <span className="flex gap-1 text-sm mr-0.5">
+              Rio de Janeiro, Rj
+            </span>
           </div>
 
           <Link href="/checkout" aria-label="Página de checkout">

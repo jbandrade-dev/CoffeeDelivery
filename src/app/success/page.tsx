@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useContext } from "react";
 
 export default function SuccessPage() {
-  const {newOrder} = useContext(CoffeeContext)
+  const {} = useContext(CoffeeContext)
 
   return (
     <section className="pc:flex pc:justify-between mob:grid tablet:grid pc:pt-44 max-w-[70rem] mx-auto pc:px-0 mob:px-6 tablet:px-6">
