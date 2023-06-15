@@ -65,9 +65,9 @@ export function CoffeeContextProvider({
             cartProducts: storedCartProducts
               ? JSON.parse(storedCartProducts)
               : [],
-            newOrderData: storedNewOrderData
+            newOrderData: storedNewOrderData!
               ? JSON.parse(storedNewOrderData)
-              : undefined,
+              : null,
           };
         } catch (error) {
           console.error(error);
