@@ -62,7 +62,7 @@ export function CoffeeContextProvider({
           return {
             ...initialState,
             cartProducts: JSON.parse(storedCartProducts),
-            newOrderData: JSON.parse(storedNewOrderData),
+            newOrderData: JSON.parse(storedNewOrderData!),
           };
         }
       }
