@@ -55,14 +55,14 @@ export function CoffeeContextProvider({
     OrderReducer,
     { cartProducts: [], newOrderData: undefined },
     (initialState) => {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         const storedCartProducts = localStorage.getItem("cartProducts");
         const storedNewOrderData = localStorage.getItem("newOrderData");
-        if (storedCartProducts && storedNewOrderData!) {
+        if (storedCartProducts && storedNewOrderData) {
           return {
             ...initialState,
             cartProducts: JSON.parse(storedCartProducts),
-            newOrderData: JSON.parse(storedNewOrderData!),
+            newOrderData: storedNewOrderData ? JSON.parse(storedNewOrderData) : undefined,
           };
         }
       }
