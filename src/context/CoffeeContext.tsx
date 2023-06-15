@@ -38,6 +38,7 @@ interface CoffeeContextType {
   handleIncrementQuantity: (CartProductsPropsId: string) => void;
   handleDecrementQuantity: (CartProductsPropsId: string) => void;
   handleRemoveProduct: (CartProductsPropsId: string) => void;
+  handleSetCartLocalStorage: (value: CartProductsProps[]) => void;
   setNewOrderData: (info: NewOrderFormData) => void;
   resetCoffeeContext: () => void;
 }
@@ -108,9 +109,6 @@ export function CoffeeContextProvider({
     dispatch(handleNewProductAction(item));
   }
 
-  handleSetCartLocalStorage(cartProducts);
-  handleSetOrderLocalStorage(newOrderData!);
-
   function handleIncrementQuantity(CartProductsPropsId: string) {
     dispatch(handleIncrementQuantityAction(CartProductsPropsId));
   }
@@ -125,6 +123,7 @@ export function CoffeeContextProvider({
 
   function setNewOrderData(info: NewOrderFormData) {
     dispatch(setNewOrderDataAction(info));
+    handleSetOrderLocalStorage(newOrderData!);
   }
 
   function resetCoffeeContext() {
@@ -140,6 +139,7 @@ export function CoffeeContextProvider({
         handleIncrementQuantity,
         handleDecrementQuantity,
         handleRemoveProduct,
+        handleSetCartLocalStorage,
         setNewOrderData,
         resetCoffeeContext,
       }}
