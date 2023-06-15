@@ -33,7 +33,7 @@ export type NewOrderFormData = z.infer<typeof newOrderFormValidationSchema>;
 
 interface CoffeeContextType {
   cartProducts: CartProductsProps[];
-  newOrderData?: NewOrderFormData;
+  newOrderData?: NewOrderFormData | null;
   handleNewProduct: (CartProductsProps: CartProductsProps) => void;
   handleIncrementQuantity: (CartProductsPropsId: string) => void;
   handleDecrementQuantity: (CartProductsPropsId: string) => void;
@@ -54,7 +54,7 @@ export function CoffeeContextProvider({
 }: CoffeeContextProviderProps) {
   const [state, dispatch] = useReducer(
     OrderReducer,
-    { cartProducts: [], newOrderData: undefined },
+    { cartProducts: [], newOrderData: null },
     (initialState) => {
       if (typeof window !== "undefined") {
         const storedCartProducts = localStorage.getItem("cartProducts");
