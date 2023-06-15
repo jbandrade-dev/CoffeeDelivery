@@ -11,7 +11,7 @@ import { PaymentMethod } from "./PaymentMethod";
 import { Cart } from "./Cart";
 
 export function Checkout() {
-  const { setNewOrderData, newOrderData, resetCoffeeContext, handleSetCartLocalStorage, cartProducts } = useContext(CoffeeContext);
+  const { setNewOrderData, newOrderData, resetCoffeeContext } = useContext(CoffeeContext);
 
   const newOrderForm = useForm<NewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
@@ -40,7 +40,6 @@ export function Checkout() {
     setNewOrderData(info);
     location.href = "/success/";
 
-    handleSetCartLocalStorage(cartProducts)
     resetCoffeeContext();
   }
 

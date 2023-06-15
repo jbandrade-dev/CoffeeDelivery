@@ -1,5 +1,3 @@
-"use client";
-
 import { createContext, ReactNode, useEffect, useReducer } from "react";
 import {
   handleDecrementQuantityAction,
@@ -33,12 +31,11 @@ export type NewOrderFormData = z.infer<typeof newOrderFormValidationSchema>;
 
 interface CoffeeContextType {
   cartProducts: CartProductsProps[];
-  newOrderData?: NewOrderFormData | null;
+  newOrderData?: NewOrderFormData;
   handleNewProduct: (CartProductsProps: CartProductsProps) => void;
   handleIncrementQuantity: (CartProductsPropsId: string) => void;
   handleDecrementQuantity: (CartProductsPropsId: string) => void;
   handleRemoveProduct: (CartProductsPropsId: string) => void;
-  handleSetCartLocalStorage: (value: CartProductsProps[]) => void;
   setNewOrderData: (info: NewOrderFormData) => void;
   resetCoffeeContext: () => void;
 }
@@ -54,7 +51,7 @@ export function CoffeeContextProvider({
 }: CoffeeContextProviderProps) {
   const [state, dispatch] = useReducer(
     OrderReducer,
-    { cartProducts: [], newOrderData: null },
+    { cartProducts: [], newOrderData: undefined },
     (initialState) => {
       if (typeof window !== "undefined") {
         const storedCartProducts = localStorage.getItem("cartProducts");
@@ -65,9 +62,9 @@ export function CoffeeContextProvider({
             cartProducts: storedCartProducts
               ? JSON.parse(storedCartProducts)
               : [],
-            newOrderData: storedNewOrderData!
+            newOrderData: storedNewOrderData
               ? JSON.parse(storedNewOrderData)
-              : null,
+              : undefined,
           };
         } catch (error) {
           console.error(error);
@@ -109,6 +106,9 @@ export function CoffeeContextProvider({
     dispatch(handleNewProductAction(item));
   }
 
+  handleSetCartLocalStorage(cartProducts);
+  handleSetOrderLocalStorage(newOrderData!);
+
   function handleIncrementQuantity(CartProductsPropsId: string) {
     dispatch(handleIncrementQuantityAction(CartProductsPropsId));
   }
@@ -123,7 +123,6 @@ export function CoffeeContextProvider({
 
   function setNewOrderData(info: NewOrderFormData) {
     dispatch(setNewOrderDataAction(info));
-    handleSetOrderLocalStorage(newOrderData!);
   }
 
   function resetCoffeeContext() {
@@ -139,7 +138,6 @@ export function CoffeeContextProvider({
         handleIncrementQuantity,
         handleDecrementQuantity,
         handleRemoveProduct,
-        handleSetCartLocalStorage,
         setNewOrderData,
         resetCoffeeContext,
       }}

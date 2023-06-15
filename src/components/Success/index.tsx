@@ -1,10 +1,9 @@
-
 import { CoffeeContext } from "@/context/CoffeeContext";
 import { MapPin, Timer, CurrencyDollar } from "@phosphor-icons/react";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 
 export function Success() {
-  const { newOrderData, resetCoffeeContext } = useContext(CoffeeContext);
+  const { newOrderData } = useContext(CoffeeContext);
 
   return (
     <article className="max-w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">
@@ -46,7 +45,6 @@ export function Success() {
             <div className="grid font-roboto pc:text-sm mob:text-xs tablet:text-sm">
               <span>Previsão de entrega</span>
               <span className="font-bold">20 min - 30 min </span>
-              <span>{newOrderData?.cep} cep</span>
             </div>
           </li>
 
@@ -65,8 +63,8 @@ export function Success() {
                       return "Cartão de Crédito";
                     case "debit":
                       return "Cartão de Débito";
-                    default:
-                      return "cash";
+                    case "cash":
+                      return "Dinheiro";
                   }
                 })()}
               </span>
