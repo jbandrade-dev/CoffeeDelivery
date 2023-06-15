@@ -11,7 +11,7 @@ import { PaymentMethod } from "./PaymentMethod";
 import { Cart } from "./Cart";
 
 export function Checkout() {
-  const { setNewOrderData, newOrderData } = useContext(CoffeeContext);
+  const { setNewOrderData, newOrderData, resetCoffeeContext } = useContext(CoffeeContext);
 
   const newOrderForm = useForm<NewOrderFormData>({
     resolver: zodResolver(newOrderFormValidationSchema),
@@ -31,21 +31,23 @@ export function Checkout() {
   const { watch } = newOrderForm;
 
   function handleSubmitNewOrder(event: FormEvent) {
-    event.preventDefault()
+    event.preventDefault();
 
-    const data = watch()
+    const data = watch();
 
-    const {...info} = data
+    const { ...info } = data;
 
     setNewOrderData(info);
     location.href = "/success/";
+
+    resetCoffeeContext();
   }
 
   return (
     <article>
       <form
         className="pc:flex mob:grid tablet:grid my-10 max-w-[1120px] w-full mx-auto pc:px-0 mob:px-6 tablet:px-6"
-        onSubmit={(handleSubmitNewOrder)}
+        onSubmit={handleSubmitNewOrder}
       >
         <section className="grid gap-3 max-w-[40rem]">
           <h3 className="text-lg font-bold mb-1 ml-1">Complete seu pedido</h3>
@@ -70,7 +72,6 @@ export function Checkout() {
               className="flex w-full mt-6 items-center justify-center uppercase font-roboto font-bold bg-brand-yellow h-11 text-white text-xs py-3 rounded hover:bg-brand-yellow-dark transition-[300] ease-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-yellow-dark"
               type="submit"
               // disabled={!formState.isValid}
-
             >
               Confirmar pedido
             </button>

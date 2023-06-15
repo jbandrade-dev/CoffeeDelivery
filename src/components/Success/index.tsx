@@ -6,8 +6,6 @@ import { useContext, useEffect } from "react";
 export function Success() {
   const { newOrderData, resetCoffeeContext } = useContext(CoffeeContext);
 
-  resetCoffeeContext();
-
   return (
     <article className="max-w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">
       <div className="flex w-full bg-base-background pc:p-10 mob:p-6 rounded-tr-[36px] rounded-bl-[36px] rounded-md">
