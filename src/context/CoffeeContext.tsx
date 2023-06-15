@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { createContext, ReactNode, useReducer } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
 import {
   handleDecrementQuantityAction,
   handleIncrementQuantityAction,
@@ -55,7 +55,7 @@ export function CoffeeContextProvider({
     OrderReducer,
     { cartProducts: [], newOrderData: undefined },
     (initialState) => {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         const storedCartProducts = localStorage.getItem("cartProducts");
         const storedNewOrderData = localStorage.getItem("newOrderData");
         if (storedCartProducts && storedNewOrderData) {
@@ -77,7 +77,9 @@ export function CoffeeContextProvider({
     value: CartProductsProps[]
   ): void => {
     const storedCartProducts = JSON.stringify(value);
-    window.localStorage.setItem(key, storedCartProducts);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(key, storedCartProducts);
+    }
   };
 
   function handleSetCartLocalStorage(value: CartProductsProps[]) {
@@ -86,7 +88,9 @@ export function CoffeeContextProvider({
 
   const setOrderLocalStorage = (key: string, value: NewOrderFormData): void => {
     const storedCartProducts = JSON.stringify(value);
-    window.localStorage.setItem(key, storedCartProducts);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(key, storedCartProducts);
+    }
   };
 
   function handleSetOrderLocalStorage(value: NewOrderFormData) {
@@ -114,7 +118,6 @@ export function CoffeeContextProvider({
 
   function setNewOrderData(info: NewOrderFormData) {
     dispatch(setNewOrderDataAction(info));
-    resetCoffeeContext();
   }
 
   console.log(newOrderData);

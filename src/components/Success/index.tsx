@@ -1,9 +1,12 @@
+
 import { CoffeeContext } from "@/context/CoffeeContext";
 import { MapPin, Timer, CurrencyDollar } from "@phosphor-icons/react";
 import { useContext, useEffect } from "react";
 
 export function Success() {
-  const { newOrderData } = useContext(CoffeeContext);
+  const { newOrderData, resetCoffeeContext } = useContext(CoffeeContext);
+
+  resetCoffeeContext();
 
   return (
     <article className="max-w-[32.875rem] flex mt-10 rounded-md bg-gradient-to-r from-brand-yellow to-brand-purple p-[0.8px] rounded-tr-[36px] rounded-bl-[36px]  ">
@@ -25,9 +28,7 @@ export function Success() {
 
                   <span className="font-bold">/</span>
 
-                  <span className="font-bold">
-                    {newOrderData?.complemento}
-                  </span>
+                  <span className="font-bold">{newOrderData?.complemento}</span>
                 </div>
               </div>
               <div>
